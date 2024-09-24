@@ -18,7 +18,8 @@ const Add = ({token}) => {
   const [subCategory, setSubCategory] = useState("Topwear")
   const [bestSeller, setBestSeller] = useState(false)
   const [sizes, setSizes] = useState([])
-
+  console.log(subCategory);
+  
   const onSubmitHandler=async (e)=>{
     e.preventDefault();
     try {
@@ -113,8 +114,8 @@ const Add = ({token}) => {
           </select>
         </div>
         <div>
-          <p onChange={(e)=>setSubCategory(e.target.value)} className="mb-2">Sub category</p>
-          <select className="w-full px-3 py-2">
+          <p  className="mb-2">Sub category</p>
+          <select onChange={(e)=>setSubCategory(e.target.value)} className="w-full px-3 py-2">
             <option value="Topwear">Topwear</option>
             <option value="Bottomwear">Bottomwear</option>
             <option value="Winterwear">Winterwear</option>

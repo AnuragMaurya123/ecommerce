@@ -33,7 +33,7 @@ const loginUser=async(req,res)=>{
     return res.json({success:true,token}) 
    } catch (error) {
     console.log(error);
-    res.json({ success:true,message:error})
+    res.json({ success:false,message:error})
    }    
 }
 
