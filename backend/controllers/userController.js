@@ -1,4 +1,4 @@
-import isEmail from "validator/lib/isEmail.js";
+
 import userModel from "../models/userModel.js";
 import  validator  from "validator";
 import jwt from "jsonwebtoken"

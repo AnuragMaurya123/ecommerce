@@ -30,6 +30,7 @@ const Login = ({setToken}) => {
         <h1 className='text-2xl font-bold mb-4'>Admin Panel</h1>
         <form onSubmit={onSubmitHandle}>
             <div className="mb-3 min-w-72">
+            <p className="">Email:anuragmaurya566@gmail.com Password:1234567</p>
                 <p className="text-sm font-medium text-gray-700 mb-2">Email Address</p>
                 <input onChange={(e)=>setEmail(e.target.value)} autoComplete='on' value={email} placeholder='Enter your Email' className='rounded-md w-full px-3 py-2 border border-gray-300 outline-none' type="email" />
             </div>
