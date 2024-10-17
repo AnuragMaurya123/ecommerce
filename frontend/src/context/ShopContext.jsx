@@ -32,11 +32,19 @@ const ShopContextProvider = (props) => {
   }
   const getUserCart=async (token)=>{
     try { 
-    const response=await axios.post(BACKEND_URL+"/api/cart/user-cart",{},{headers:{token}})
+    const response=await axios.post(BACKEND_URL+"/api/cart/user-cart",{},{
+                    headers: { 
+                        Authorization: `Bearer ${token}` // Make sure to format the token correctly
+                    }
+                })
     if (response.data.success) {
       setCartItem(response.data.cartData)
     }
     } catch (error) {
+      if (error === "Request failed with status code 401") {
+        console.log(error);      
+        toast.error(error.response.data.message)
+      }
     console.log(error);      
     toast.error(error.message)
     }  
@@ -77,12 +85,43 @@ const ShopContextProvider = (props) => {
 
     if(token){
       try { 
-      const response=await axios.post(BACKEND_URL+"/api/cart/add",{itemId,sizes},{headers:{token}})
+      const response=await axios.post(BACKEND_URL+"/api/cart/add",{itemId,sizes},{
+        headers: { 
+            Authorization: `Bearer ${token}` // Make sure to format the token correctly
+        }
+    })
+     if (response.data.success) {
+      toast.success(response.data.message)
+     }
       
       } catch (error) {
       console.log(error);      
       toast.error(error.message)
       }  
+  }
+  }
+
+  const deleteToCart=async (itemId,sizes)=>{
+    const cartData=structuredClone(cartItem)
+    delete cartData[itemId][sizes];
+    setCartItem(cartData)
+    if(token){
+      try {
+        const response = await axios.delete(`${BACKEND_URL}/api/cart/delete`, {
+          headers: { 
+            Authorization: `Bearer ${token}` // Make sure to format the token correctly
+        }, // Correctly set headers
+          data: { itemId,sizes }  // Data should be passed in the 'data' field
+        });
+        
+        if (response.data.success) {
+          toast.success(response.data.message)
+         }
+          
+          } catch (error) {
+          console.log(error);      
+          toast.error(error.message)
+          } 
   }
   }
 
@@ -110,8 +149,14 @@ const updateQuatity=async (itemId,sizes,quantity)=>{
   try {
     if(token){
       try {
-      const response=await axios.post(BACKEND_URL+"/api/cart/update",{itemId,sizes,quantity},{headers:{token}})
-      
+      const response=await axios.post(BACKEND_URL+"/api/cart/update",{itemId,sizes,quantity},{
+                    headers: { 
+                        Authorization: `Bearer ${token}` // Make sure to format the token correctly
+                    }
+                })
+      if (response.data.success) {
+        toast.success(response.data.message)
+       }
       } catch (error) {
       console.log(error);      
       toast.error(error.message)
@@ -147,6 +192,7 @@ const getCardAmount=()=>{
     BACKEND_URL,
     setSearch,
     setCartItem,
+    deleteToCart,
     showSearch,
     setShowSearch,
     addToCart,

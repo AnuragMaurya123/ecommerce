@@ -27,6 +27,8 @@ const onSubmit = async (e) => {
   if (type === "signup") {
     try {
       const response =await axios.post(BACKEND_URL+"/api/user/register",user)
+      console.log(response);
+      
       if (response.data.success) {
         setToken(response.data.token)  
         localStorage.setItem("token",response.data.token)

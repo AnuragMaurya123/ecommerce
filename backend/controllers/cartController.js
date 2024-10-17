@@ -49,6 +49,8 @@ const updateToCart = async (req, res) => {
 
             // Update cart in the database
             await userModel.findByIdAndUpdate(userId, { cartData });
+            //remove product from card
+
 
             // Send successful response
             res.json({ success: true, message: "Cart updated successfully" });
@@ -61,6 +63,41 @@ const updateToCart = async (req, res) => {
         res.json({ success: false, message: error.message });
     }
 };
+
+// Function to update an item in the cart
+const deleteToCart = async (req, res) => {
+    try {
+        const { userId, itemId, sizes } = req.body;
+   
+        // Fetch user data
+        const userData = await userModel.findById(userId);
+        let cartData = userData.cartData || {};
+
+        // Check if the item and size exist in the cart
+        if (cartData[itemId] && cartData[itemId][sizes]) {
+    
+           // Remove the item size from the cart
+           delete cartData[itemId][sizes];
+
+           // If no sizes are left for the item, remove the item entirely
+           if (Object.keys(cartData[itemId]).length === 0) {
+               delete cartData[itemId];
+           }
+          //remove product from card
+          await userModel.findByIdAndUpdate(userId, { cartData });
+
+            // Send successful response
+            res.json({ success: true, message: "Cart Remove successfully" });
+        } else {
+            // If item or size doesn't exist
+            res.json({ success: false, message: "Item or size not found in the cart" });
+        }
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+};
+
 
 // Function to get the user's cart
 const getUserCart = async (req, res) => {
@@ -82,4 +119,4 @@ const getUserCart = async (req, res) => {
     }
 };
 
-export { addToCart, getUserCart, updateToCart };
+export { addToCart, getUserCart, updateToCart,deleteToCart };

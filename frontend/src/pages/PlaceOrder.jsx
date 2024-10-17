@@ -56,7 +56,11 @@ const PlaceOrder = () => {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_signature: response.razorpay_signature
             },
-            { headers: { token } }
+            {
+              headers: { 
+                  Authorization: `Bearer ${token}` // Make sure to format the token correctly
+              }
+          }
           );
           if (data.success) {
             navigate("/orders");
@@ -109,7 +113,11 @@ const PlaceOrder = () => {
             const response = await axios.post(
               BACKEND_URL + "/api/order/place",
               orderData,
-              { headers: { token } }
+              {
+                headers: { 
+                    Authorization: `Bearer ${token}` // Make sure to format the token correctly
+                }
+            }
             );
 
             if (response.data.success) {
@@ -130,7 +138,11 @@ const PlaceOrder = () => {
               const response = await axios.post(
                 BACKEND_URL + "/api/order/stripe",
                 orderData,
-                { headers: { token } }
+                {
+                  headers: { 
+                      Authorization: `Bearer ${token}` // Make sure to format the token correctly
+                  }
+              }
               );
               
               
@@ -151,7 +163,11 @@ const PlaceOrder = () => {
             const responseRazorpay = await axios.post(
               BACKEND_URL + "/api/order/razor",
               orderData,
-              { headers: { token } }
+              {
+                headers: { 
+                    Authorization: `Bearer ${token}` // Make sure to format the token correctly
+                }
+            }
             );
             
             

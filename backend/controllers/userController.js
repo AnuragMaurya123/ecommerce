@@ -6,7 +6,7 @@ import bcrypt from "bcrypt"
 
 // creating jwt token through user id
 const createjwt=(id)=>{
-   return jwt.sign({id},process.env.SECRET_TOKEN)
+   return jwt.sign({id},process.env.SECRET_TOKEN,{expiresIn:"2h"})
 }
 
 //User login function
@@ -53,7 +53,7 @@ const registerUser=async(req,res)=>{
         return res.json({success:false,message:"please Enter valid email"})
     }
     //checking password length 
-    if (password.length > 8) {
+    if (password.length < 8) {
         return res.json({success:false,message:"please Enter Strong Password"})
     }
 
@@ -73,7 +73,7 @@ const registerUser=async(req,res)=>{
     const token = createjwt(user._id)
     res.json({
         success:true,
-        token
+        token,
     })
 
 
@@ -84,6 +84,32 @@ const registerUser=async(req,res)=>{
     
    }
 }
+
+const getUserProfile = async (req, res) => {
+    try {
+        // Getting userId from middleware
+        const { userId } = req.body;
+
+        // Finding user profile
+        const user = await userModel.findOne({ _id: userId });
+        console.log(user);
+
+        // If user not found
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+        // Exclude password from user data
+        const { password, ...rest } = user._doc;
+        return res.json({ success: true, data: { ...rest } });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: "Something went wrong, can't get your profile" });
+    }
+};
+
+
 
 //Admin login function
 const adminUser=async(req,res)=>{
@@ -103,4 +129,4 @@ const adminUser=async(req,res)=>{
     }
 }
 
-export {loginUser,registerUser,adminUser};
+export {loginUser,registerUser,adminUser,getUserProfile};
