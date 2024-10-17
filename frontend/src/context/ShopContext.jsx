@@ -41,7 +41,7 @@ const ShopContextProvider = (props) => {
       setCartItem(response.data.cartData)
     }
     } catch (error) {
-      if (error === "Request failed with status code 401") {
+      if (error.message === "Request failed with status code 401") {
         console.log(error);      
         toast.error(error.response.data.message)
       }
