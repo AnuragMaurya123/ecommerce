@@ -4,12 +4,12 @@ import { ShopContext } from '../context/ShopContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
-const Login = () => {
+const SignupLogin = () => {
 const {type} = useParams()
 const {navigate,BACKEND_URL,setToken,token}=useContext(ShopContext)
-
+const [photo ,setPhoto]=useState(null)
 const [user ,setUser]=useState(type === 'login' ? {email:'',password:''}:
-  {name:'',email:'',password:''})
+  {name:'',email:'',password:'',phone:'',gender:''})
 
 const handleInput=(e)=>{
   let name=e.target.name;
@@ -26,8 +26,16 @@ const onSubmit = async (e) => {
   e.preventDefault();
   if (type === "signup") {
     try {
-      const response =await axios.post(BACKEND_URL+"/api/user/register",user)
-      console.log(response);
+
+      const inputData=new FormData()
+      inputData.append("name",user.name)
+      inputData.append("email",user.email)
+      inputData.append("phone",user.phone)
+      inputData.append("password",user.password)
+      inputData.append("gender",user.gender)
+      inputData && inputData.append("photo",photo)
+      const response =await axios.post(BACKEND_URL+"/api/user/register",inputData)
+     
       
       if (response.data.success) {
         setToken(response.data.token)  
@@ -81,7 +89,10 @@ const switchFrom=()=>{
       name: "",
       email: "",
       password: "",
+      phone: "",
+      gender: "",
     });
+    setPhoto(null)
     navigate("user/signup"); 
   } else {
     setUser({
@@ -94,20 +105,50 @@ const switchFrom=()=>{
 
   return (
     <div>
-      <form onSubmit={onSubmit} className="flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800">
+      <form onSubmit={onSubmit} className="flex flex-col items-center w-[90%] sm:max-w-[500px] m-auto mt-14 gap-4 text-gray-800">
         <div className="inline-flex items-center gap-2 mb-2 mt-10">
           <p className="prata-regular text-[#009e3e] text-3xl">{type=== "login" ? "Log In":"Sign Up"}</p>
           <hr className="border-none h-[1.5px] w-8 bg-gray-800" />
           </div>
-          {type === "signup" ?  <input name='name' id='username' type="text" className="w-full px-3 py-2 border border-gray-800" 
-           placeholder="Name" required autoComplete='on' value={user.name} onChange={handleInput} />  : ""}
+          {type === "signup" ?  (<>
+            <input name='name' id='username' type="text" className="w-full px-3 py-2 border border-gray-800" 
+           placeholder="Full Name" required autoComplete='on' value={user.name} onChange={handleInput} /> 
            
+           <div className="w-full flex gap-3">
+           <input name='phone' id='phone' type="number" className="w-1/2 px-3 py-2 border border-gray-800" 
+           placeholder="Phone No." required autoComplete='on' value={user.phone} onChange={handleInput} /> 
 
-          <input id='email' name='email' type="email" className="w-full px-3 py-2 border border-gray-800"
+         <select value={user.gender} onChange={handleInput} name="gender" className="w-1/2 px-3 py-2 border border-gray-800">
+           <option value="">Select</option>
+           <option value="male">Male</option>
+             <option value="female">Female</option>
+           <option value="other">Other</option>
+           </select>
+            
+           </div>
+
+           <input id='email' name='email' type="email" className="w-full px-3 py-2 border border-gray-800"
            placeholder="Email" autoComplete='on' value={user.email} onChange={handleInput}/>
 
           <input id='password' name='password' type="password" className="w-full px-3 py-2 border border-gray-800"
            placeholder="Password" autoComplete='off' value={user.password} onChange={handleInput} />
+
+          <input id='photo' name='photo' type="file" className=" border border-gray-800 file-input w-full rounded-none"
+            autoComplete='off' value={user.photo} accept='.jpg, .png' onChange={(e)=>setPhoto(e.target.files[0])} />
+          </>
+            
+           ) : (
+            <>
+              <input id='email' name='email' type="email" className="w-full px-3 py-2 border border-gray-800"
+           placeholder="Email" autoComplete='on' value={user.email} onChange={handleInput}/>
+
+          <input id='password' name='password' type="password" className="w-full px-3 py-2 border border-gray-800"
+           placeholder="Password" autoComplete='off' value={user.password} onChange={handleInput} />
+            </>
+           )}
+           
+
+         
 
           <div className="w-full flex justify-between text-sm mt-[-8px]">
             <p className=" cursor-pointer">Forgot your password?</p>
@@ -121,4 +162,4 @@ const switchFrom=()=>{
   )
 }
 
-export default Login
+export default SignupLogin

@@ -16,6 +16,8 @@ const ShopContextProvider = (props) => {
   const [products,setProducts]=useState([]);
   const [token, setToken] = useState("")
 
+
+
   const fetchListProduct=async ()=>{
     try {
       const response=await axios.get(BACKEND_URL+"/api/product/list")
@@ -44,16 +46,17 @@ const ShopContextProvider = (props) => {
       if (error.message === "Request failed with status code 401") {
         console.log(error);      
         toast.error(error.response.data.message)
-      }
+      }else{
     console.log(error);      
     toast.error(error.message)
+  }
     }  
 
 
 }
   useEffect(() => {
    fetchListProduct()
-  
+   
   }, [])
   
   useEffect(() => {
@@ -204,7 +207,8 @@ const getCardAmount=()=>{
     navigate,
     fetchListProduct,
     setToken,
-    token
+    token,
+
   };
 
   return (

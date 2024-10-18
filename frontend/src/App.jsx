@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom"
 import Home from "./pages/Home"
 import Collection from "./pages/Collection"
 import About from "./pages/About"
-import Login from "./pages/Login"
+import SignupLogin from "./pages/SignupLogin"
 import Contact from "./pages/Contact"
 import Product from "./pages/Product"
 import Cart from "./pages/Cart"
@@ -15,6 +15,7 @@ import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Verify from "./pages/Verify"
 import Account from "./pages/user/Account"
+
 
 function App() {
 
@@ -31,7 +32,7 @@ function App() {
     <Route path="contact" element={<Contact/>}/>
     <Route path="/product/:productId" element={<Product/>}/>
     <Route path="/cart" element={<Cart/>}/>
-    <Route path="/user/:type" element={<Login/>}/>
+    <Route path="/user/:type" element={<SignupLogin/>}/>
     <Route path="/place-order" element={<PlaceOrder/>}/>
     <Route path="/orders" element={<Order/>}/>
     <Route path="/verify" element={<Verify/>}/>

@@ -13,6 +13,7 @@ const razorpayInstance=new razorpay({
     key_secret:process.env.RAZORPAY_SECRET_KEY,
 })
 
+
 //place orders using COD
 const placeOrder=async (req,res)=>{
 

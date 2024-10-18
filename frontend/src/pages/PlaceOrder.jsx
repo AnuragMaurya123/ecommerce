@@ -14,7 +14,6 @@ const PlaceOrder = () => {
     setCartItem,
     products,
     cartItem,
-    currency,
     delivery_fee,
     token,
     BACKEND_URL,

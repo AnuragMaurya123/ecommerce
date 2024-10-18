@@ -2,12 +2,15 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },  // Corrected 'require' to 'required'
+    name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    cartData: { type: Object, default: {} },  // Ensure cartData is always initialized
+    phone: { type: String },  // Changed to String for flexibility
+    photo: { type: String },
+    gender: { type: String, enum: ["male", "female", "other"] },
+    cartData: { type: Object, default: {} },
   },
-  { minimize: false }  // Prevents Mongoose from removing empty objects
+  { timestamps: true, minimize: false }
 );
 
 const userModel = mongoose.models.user || mongoose.model("user", userSchema);
