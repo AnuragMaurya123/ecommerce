@@ -49,7 +49,7 @@ const Navbar = () => {
 
       </ul>
     <div className="flex items-center gap-6">
-      <NavLink to={"/collection"}>
+      <NavLink to={"/collection"} className={"bg-none"}>
       <img onClick={toggleSearchBar} src={assets.search_icon} className='w-5 cursor-pointer' alt="" />
       </NavLink>
 
