@@ -70,6 +70,10 @@ const ShopContextProvider = (props) => {
 
   const addToCart=async (itemId,sizes)=>{
     const  cartCopy=structuredClone(cartItem)
+    if (!token) {
+      toast.error("Please Login First!")
+      return;
+    }
     if (!sizes) {
       toast.error("Select the sizes of clothes")
       return;
