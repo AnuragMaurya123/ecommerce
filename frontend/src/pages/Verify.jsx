@@ -18,7 +18,10 @@ const Verify = () => {
                 return null;
               }
         
-            const response = await axios.post(BACKEND_URL + "/api/order/verifystripe",{ success, orderId },{ headers: { token } });
+            const response = await axios.post(BACKEND_URL + "/api/order/verifystripe",{ success, orderId },
+              { headers: {
+                 Authorization: `Bearer ${token}`,
+               }});
               if (response.data.success) {
                 setCartItem({});
                 navigate("/orders");
