@@ -15,6 +15,7 @@ import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Verify from "./pages/Verify"
 import Account from "./pages/user/Account"
+import Notification from "./components/Notification"
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       <Navbar/>
       <SearchBar/>
       <ToastContainer/>
+      <Notification/>
      <Routes>
     <Route path="/" element={<Home/>}/>
     <Route path="/collection" element={<Collection/>}/>
