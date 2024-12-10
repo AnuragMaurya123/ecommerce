@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom'
 import axios from "axios";
 import { useEffect } from 'react';
 import { toast } from "react-toastify";
+import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 const Verify = () => {
     const {navigate,setCartItem,token,BACKEND_URL} =useContext(ShopContext)
     const [searchParams,setSearchParams]= useSearchParams()
