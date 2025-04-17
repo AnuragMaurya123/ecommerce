@@ -18,7 +18,11 @@ connectCloudinary()
 
 //midlleware
 app.use(express.json());
-app.use(cors())
+app.use(cors({
+    origin: [process.env.FRONTEND,process.env.ADMIN,process.env.TEST], // allow only your frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+  }));
 
 //api endpoint
 app.use("/api/user",userRouter);
