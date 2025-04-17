@@ -54,6 +54,8 @@ const onSubmit = async (e) => {
     try {
       e.preventDefault();
       const response =await axios.post(BACKEND_URL+"/api/user/login",user)
+      console.log(response);
+      
       if (response.data.success) {
         setToken(response.data.token) 
         setUser({
