@@ -19,8 +19,15 @@ connectCloudinary()
 //midlleware
 app.use(express.json());
 app.use(cors({
-    origin: [process.env.FRONTEND,process.env.ADMIN,process.env.TEST], // allow only your frontend
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: function (origin, callback) {
+      console.log("Incoming request origin:", origin);
+      const allowedOrigins = [process.env.FRONTEND, process.env.ADMIN, process.env.TEST];
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   }));
 
