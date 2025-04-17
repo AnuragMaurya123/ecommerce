@@ -20,14 +20,21 @@ connectCloudinary()
 app.use(express.json());
 app.use(cors({
     origin: function (origin, callback) {
-      console.log("Incoming request origin:", origin);
-      const allowedOrigins = [process.env.FRONTEND, process.env.ADMIN, process.env.TEST];
+      const allowedOrigins = [
+        process.env.FRONTEND,
+        process.env.ADMIN,
+        process.env.TEST
+      ];
+  
+      // allow requests with no origin (like mobile apps or curl)
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
+        console.log("Blocked CORS origin:", origin); // log the bad ones
         callback(new Error("Not allowed by CORS"));
       }
     },
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   }));
 
