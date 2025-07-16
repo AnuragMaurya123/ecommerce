@@ -10,7 +10,6 @@ import cartRouter from "./routers/cartRouter.js";
 import orderRouter from "./routers/orderRouter.js";
 
 // app Config
-export const createServer=async () =>{
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -72,7 +71,7 @@ app.use((req, res) => {
 
 // Start server with error handling
 const server = app.listen(port, () => {
-    console.log(`Server started on port: ${port}, PID: ${process.pid}`);
+    console.log(`Server started on port: ${port}`);
 });
 
 // Handle unhandled promise rejections
@@ -86,4 +85,3 @@ process.on('uncaughtException', (err) => {
     console.error('Uncaught Exception:', err);
     server.close(() => process.exit(1));
 });
-}
