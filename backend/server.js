@@ -72,7 +72,7 @@ app.use((req, res) => {
 
 // Start server with error handling
 const server = app.listen(port, () => {
-    console.log(`Server started on port: ${port}`);
+    console.log(`Server started on port: ${port}, PID: ${process.pid}`);
 });
 
 // Handle unhandled promise rejections
