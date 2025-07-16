@@ -10,6 +10,7 @@ import cartRouter from "./routers/cartRouter.js";
 import orderRouter from "./routers/orderRouter.js";
 
 // app Config
+export const createServer=async () =>{
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -85,3 +86,4 @@ process.on('uncaughtException', (err) => {
     console.error('Uncaught Exception:', err);
     server.close(() => process.exit(1));
 });
+}

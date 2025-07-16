@@ -1,11 +1,12 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "cluster.js",
   "type": "module",
   "scripts": {
-    "server": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node cluster.js",
+    "server": "nodemon cluster.js",
+    "pm2": "pm2 start cluster.js -i max --name backend-app"
   },
   "author": "",
   "license": "ISC",
@@ -19,9 +20,12 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.6.2",
     "multer": "^1.4.5-lts.1",
-    "nodemon": "^3.1.4",
+    "pm2": "^6.0.8",
     "razorpay": "^2.9.4",
     "stripe": "^16.11.0",
     "validator": "^13.12.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }
