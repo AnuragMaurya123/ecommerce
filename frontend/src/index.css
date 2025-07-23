@@ -11,3 +11,8 @@ a.active hr{
         color:black
     }
 }
+
+:root, [data-theme] {
+    background-color: oklch(1 0 0);
+    color: oklch(1 0 0);
+}
